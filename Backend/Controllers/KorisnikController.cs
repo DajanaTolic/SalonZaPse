@@ -6,7 +6,7 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class KorisnikController
+    public class KorisnikController:ControllerBase
 
         
     {
