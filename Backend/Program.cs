@@ -1,6 +1,11 @@
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
+try
+{
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -40,3 +45,11 @@ app.MapFallbackToFile("index.html");
 //završio za potrebe produkcije
 
 app.Run();
+
+
+
+}
+catch (Exception e)
+{
+    
+}
