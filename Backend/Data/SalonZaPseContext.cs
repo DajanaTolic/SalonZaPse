@@ -16,10 +16,14 @@ namespace Backend.Data
 
         }
         public DbSet<Korisnik> Korisnici { get; set; }
+
+        public DbSet<Usluga> Usluge { get; set; }
+
        
 
 
-      
+
+
 
 
     }
