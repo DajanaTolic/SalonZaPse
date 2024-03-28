@@ -10,17 +10,27 @@ namespace Backend.Controllers
 
         
     {
-
         private readonly SalonZaPseContext _contex;
 
-        
-
+       
         public KorisnikController (SalonZaPseContext contex) { _contex = contex; }
+
+
+
+
         [HttpGet]
 
         public IActionResult Get()
         {
             return new JsonResult(_contex.Korisnici.ToList());
+        }
+        [HttpGet]
+        [Route("{sifra:int}")]
+
+        public IActionResult GetBySifra(int sifra) 
+        {
+            return new JsonResult(_contex.Korisnici.Find(sifra));
+       
         }
 
         [HttpPost]
@@ -32,6 +42,8 @@ namespace Backend.Controllers
 
             return new JsonResult(korisnik);
         }
+
+
 
         [HttpDelete]
         [Route("{id:int}")]
