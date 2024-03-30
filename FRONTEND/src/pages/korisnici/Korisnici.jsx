@@ -3,33 +3,29 @@ import Container from 'react-bootstrap/Container';
 import KorisnikService from '../../services/KorisnikService';
 import { Button, Table } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import {RoutesNames} from '../../constants'
+import { RoutesNames } from '../../constants';
 
-
-export default function Korisnici(){
+export default function Korisnici() {
     const [korisnici, setKorisnici] = useState();
     const navigate = useNavigate();
 
-
-    async function dohvatiKorisnike(){
+    async function dohvatiKorisnike() {
         await KorisnikService.get()
-        .then((odg)=>{
-            setKorisnici(odg);
-        })
-        .catch((e)=>{
-            console.log(e);
-        });
+            .then((odg) => {
+                setKorisnici(odg);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         dohvatiKorisnike();
-    },[]);
+    }, []);
 
-    
-
-    async function obrisiAsync(sifra){
+    async function obrisiAsync(sifra) {
         const odgovor = await KorisnikService._delete(sifra);
-        if (odgovor.greska){
+        if (odgovor.greska) {
             console.log(odgovor.poruka);
             alert('Pogledaj konzolu');
             return;
@@ -37,9 +33,10 @@ export default function Korisnici(){
         dohvatiKorisnike();
     }
 
-    function obrisi(sifra){
+    function obrisi(sifra) {
         obrisiAsync(sifra);
     }
+
 
     return(
         <>
@@ -49,9 +46,9 @@ export default function Korisnici(){
                     <thead>
                         <tr>
                             <th>Ime</th>
-                            <th>Pasmina</th>
-                            <th>Kilaza</th>
-                            <th>Vlasnik</th>
+                            <th>pasmina</th>
+                            <th>kilaza</th>
+                            <th>vlasnik</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +58,8 @@ export default function Korisnici(){
                                 <td>{korisnik.pasmina}</td>
                                 <td>{korisnik.kilaza}</td>
                                 <td>{korisnik.vlasnik}</td>
-                              
+
+
                                 <td>
                                     <Button 
                                     onClick={()=>obrisi(korisnik.sifra)}
@@ -76,6 +74,11 @@ export default function Korisnici(){
                                         Promjeni
                                     </Button>
                                 </td>
+
+
+
+
+                           
                             </tr>
                         ))}
                     </tbody>

@@ -1,6 +1,6 @@
 import {HttpService} from "./HttpService"
 
-const naziv = '/Smjer'
+const naziv = '/korisnik'
 
 async function get(){
     return await HttpService.get(naziv)
@@ -14,8 +14,8 @@ async function get(){
     })
 }
 
-async function post(smjer){
-    return await HttpService.post(naziv,smjer)
+async function post(korisnik){
+    return await HttpService.post(naziv,korisnik)
     .then((odgovor)=>{
         //console.table(odgovor.data);
         return {greska: false, poruka: odgovor.data};
@@ -26,8 +26,8 @@ async function post(smjer){
     })
 }
 
-async function put(sifra,smjer){
-    return await HttpService.put(naziv + '/'+sifra,smjer)
+async function put(sifra,korisnik){
+    return await HttpService.put(naziv + '/'+sifra,korisnik)
     .then((odgovor)=>{
         //console.table(odgovor.data);
         return {greska: false, poruka: odgovor.data};
@@ -38,8 +38,8 @@ async function put(sifra,smjer){
     })
 }
 
-async function _delete(sifraSmjera){
-    return await HttpService.delete(naziv + '/'+sifraSmjera)
+async function _delete(sifraKorisnika){
+    return await HttpService.delete(naziv + '/'+sifraKorisnika)
     .then((odgovor)=>{
         //console.table(odgovor.data);
         return {greska: false, poruka: odgovor.data.poruka};

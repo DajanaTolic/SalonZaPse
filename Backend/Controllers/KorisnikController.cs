@@ -24,6 +24,8 @@ namespace Backend.Controllers
         {
             return new JsonResult(_contex.Korisnici.ToList());
         }
+
+
         [HttpGet]
         [Route("{sifra:int}")]
 

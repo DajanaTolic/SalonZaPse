@@ -14,9 +14,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+    builder.Services.AddCors(opcije =>
+    {
+        opcije.AddPolicy("CorsPolicy",
+            builder =>
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+        );
 
-//dodavanje baze podataka
-builder.Services.AddDbContext<SalonZaPseContext>(o =>
+    });
+
+    //dodavanje baze podataka
+    builder.Services.AddDbContext<SalonZaPseContext>(o =>
 {
     o.UseSqlServer(builder.Configuration.GetConnectionString("SalonZaPseContext"));
 });
@@ -38,8 +46,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+    app.UseCors("CorsPolicy");
 
-app.UseStaticFiles();
+
+    app.UseStaticFiles();
 app.UseDefaultFiles();
 app.MapFallbackToFile("index.html");
 //završio za potrebe produkcije

@@ -25,9 +25,9 @@ export default function KorisnikDodaj(){
 
         const korisnik = {
             ime: podaci.get('ime'),  // 'naziv' je name atribut u Form.Control
-            pasmina: parseInt(podaci.get('pasmina')), //na backend je int
-            kilaza: parseFloat(podaci.get('kilaza')),
-            vlasnik: podaci.get('vlasnik')=='on' ? true : false            
+            pasmina: podaci.get('pasmina'), //na backend je int
+            kilaza: parseInt(podaci.get('kilaza')),
+            vlasnik: podaci.get('vlasnik')          
         };
 
         //console.log(korisnik);
@@ -47,26 +47,26 @@ export default function KorisnikDodaj(){
 
                 <Form.Group controlId="pasmina">
                     <Form.Label>Pasmina</Form.Label>
-                    <Form.Control type="number" name="pasmina" />
+                    <Form.Control type="text" name="pasmina" />
                 </Form.Group>
 
                 <Form.Group controlId="kilaza">
                     <Form.Label>Kilaza</Form.Label>
-                    <Form.Control type="text" name="kilaza" />
+                    <Form.Control type="number" name="kilaza" />
                 </Form.Group>
 
                 <Form.Group controlId="vlasnik">
-                    <Form.Check label="Vlasnik" name="vlasnik" />
+                    <Form.Label>Vlasnik</Form.Label>
+                    <Form.Control type="text" name="vlasnik" />
                 </Form.Group>
-
                 <hr />
                 <Row>
-                    <Col xs={6} sm={6} md={3} lg={6} xl={1} xxl={2}>
+                    <Col>
                         <Link className="btn btn-danger siroko" to={RoutesNames.KORISNIK_PREGLED}>
                             Odustani
                         </Link>
                     </Col>
-                    <Col xs={6} sm={6} md={9} lg={6} xl={1} xxl={10}>
+                    <Col >
                         <Button className="siroko" variant="primary" type="submit">
                             Dodaj
                         </Button>

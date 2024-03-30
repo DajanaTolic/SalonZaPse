@@ -6,7 +6,7 @@ export default function Pocetna(){
     return(
         <>
            <Container>
-            cukin kupleraj
+            cukina kucica
            </Container>
         </>
     );
