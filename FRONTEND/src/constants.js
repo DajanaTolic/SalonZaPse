@@ -3,6 +3,6 @@ export const RoutesNames = {
 
     KORISNIK_PREGLED: "/Korisnik",
     KORISNIK_NOVI: "/Korisnik/dodaj",
-    KORISNIK_PROMJENI: "Korisnik/:sifra"
+    KORISNIK_PROMJENI: "/Korisnik/:sifra"
     
 };

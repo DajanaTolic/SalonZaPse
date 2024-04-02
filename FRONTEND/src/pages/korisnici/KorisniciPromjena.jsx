@@ -12,6 +12,7 @@ export default function KorisniciPromjena(){
 
    async function dohvatiKorisnik(){
         const o = await KorisnikService.getBySifra(routeParams.sifra);
+        console.log(o);
         if(o.greska){
             console.log(o.poruka);
             alert('pogledaj konzolu');
@@ -42,9 +43,9 @@ export default function KorisniciPromjena(){
 
         const korisnik = {
             ime: podaci.get('ime'),  // 'naziv' je name atribut u Form.Control
-            pasmina: parseInt(podaci.get('pasmina')), //na backend je int
-            kilaza: parseFloat(podaci.get('kilaza')),
-            vlasnik: podaci.get('vlasnik')=='on' ? true : false            
+            pasmina:podaci.get('pasmina'), //na backend je int
+            kilaza: podaci.get('kilaza'),
+            vlasnik: podaci.get('vlasnik')       
         };
         //console.log(routeParams.sifra);
         //console.log(korisnik);
@@ -69,7 +70,7 @@ export default function KorisniciPromjena(){
                 <Form.Group controlId="pasmina">
                     <Form.Label>Pasmina</Form.Label>
                     <Form.Control 
-                    type="number" 
+                    type="text" 
                     name="pasmina"
                     defaultValue={korisnik.pasmina}
                      />
@@ -77,11 +78,12 @@ export default function KorisniciPromjena(){
 
                 <Form.Group controlId="kilaza">
                     <Form.Label>Kilaza</Form.Label>
-                    <Form.Control type="text" name="kilaza" defaultValue={korisnik.cijena} />
+                    <Form.Control type="number" name="kilaza" defaultValue={korisnik.kilaza} />
                 </Form.Group>
 
                 <Form.Group controlId="vlasnika">
-                    <Form.Check label="Vlasnik" name="vlasnik" defaultChecked={korisnik.verificiran   } />
+                <Form.Label>Vlasnik</Form.Label>
+                    <Form.Control type="text" name="vlasnik" defaultChecked={korisnik.vlasnik   } />
                 </Form.Group>
 
                 <hr />

@@ -69,7 +69,7 @@ export default function Korisnici() {
                                     </Button>
                                         {/* kosi jednostruki navodnici `` su AltGR (desni) + 7 */}
                                     <Button 
-                                    onClick={()=>{navigate(`/korisnici/${korisnik.sifra}`)}} 
+                                    onClick={()=>{navigate(`/Korisnik/${korisnik.sifra}`)}} 
                                     >
                                         Promjeni
                                     </Button>
