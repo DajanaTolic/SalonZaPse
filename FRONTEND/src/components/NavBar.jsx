@@ -17,7 +17,7 @@ export default function NavBar(){
                 <Navbar.Brand 
                 className='kursor'
                 onClick={()=>navigate(RoutesNames.HOME)}
-                >Cukina kućica</Navbar.Brand>
+                >Ćukina kućica</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
