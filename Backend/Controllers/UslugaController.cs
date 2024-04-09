@@ -1,73 +1,37 @@
 ﻿using Backend.Data;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class UslugaController : ControllerBase
-
-
+    public class UslugaController : BackendController <Usluga, UslugaDTORead, UslugaDTOInsertUpdate>
     {
-
-        private readonly SalonZaPseContext _contex;
-
-
-
-        public UslugaController(SalonZaPseContext contex) { _contex = contex; }
-        [HttpGet]
-
-        public IActionResult Get()
+        public UslugaController(SalonZaPseContext context) : base(context)
         {
-            return new JsonResult(_contex.Usluge.ToList());
+            DbSet = _context.Usluge;
         }
-
-        [HttpPost]
-        public IActionResult Post(Usluga usluga)
+        protected override void KontrolaBrisanje(Usluga entitet)
         {
-            _contex.Usluge.Add(usluga);
-            _contex.SaveChanges();
-
-
-            return new JsonResult(usluga);
+            var lista = _context.Usluge
+                
+                .Where(x => x.Sifra == entitet.Sifra)
+                .ToList();
+            if (lista != null && lista.Count > 0)
+            {
+                StringBuilder sb = new();
+                sb.Append("Smjer se ne može obrisati jer je postavljen na grupama: ");
+                foreach (var e in lista)
+                {
+                    sb.Append(e.Naziv).Append(", ");
+                }
+                throw new Exception(sb.ToString()[..^2]); // umjesto sb.ToString().Substring(0, sb.ToString().Length - 2)
+            }
         }
-
-        [HttpDelete]
-        [Route("{id:int}")]
-        [Produces("application/json")]
-
-        public IActionResult Delete(int id)
-        {
-            var SmjerIzBaze = _contex.Usluge.Find(id);
-
-            _contex.Usluge.Remove(SmjerIzBaze);
-            _contex.SaveChanges();
-            return new JsonResult(new { poruka = "obrisano" });
-
-
-        }
-        [HttpPut]
-        [Route("{id:int}")]
-
-
-        public IActionResult Put(int id, Usluga usluga)
-        {
-            var SmjerIzBaze = _contex.Usluge.Find(id);
-            SmjerIzBaze.Trajanje = usluga.Trajanje;
-            SmjerIzBaze.Cijena = usluga.Cijena;
-            SmjerIzBaze.Naziv = usluga.Naziv;
-            
-
-            _contex.Usluge.Update(SmjerIzBaze);
-            _contex.SaveChanges();
-
-
-            return new JsonResult(SmjerIzBaze);
-        }
-
-
-
 
     }
 }

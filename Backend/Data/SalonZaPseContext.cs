@@ -19,7 +19,9 @@ namespace Backend.Data
 
         public DbSet<Usluga> Usluge { get; set; }
 
-       
+        public DbSet<Tretman> Tretmani { get; set; }
+
+
 
 
 

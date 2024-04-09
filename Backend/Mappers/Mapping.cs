@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace EdunovaAPP.Mappers
+namespace Backend.Mappers
 {
     public class Mapping<T, DTR, DTI>
     {

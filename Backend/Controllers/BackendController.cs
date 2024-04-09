@@ -1,19 +1,19 @@
-﻿using EdunovaAPP.Data;
-using EdunovaAPP.Mappers;
-using EdunovaAPP.Models;
+﻿using Backend.Data;
+using Backend.Mappers;
+using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace EdunovaAPP.Controllers
+namespace Backend.Controllers
 {
-    public abstract class EdunovaController<T,TDR,TDI>(EdunovaContext context) : ControllerBase where T : Entitet
+    public abstract class BackendController<T,TDR,TDI>(SalonZaPseContext context) : ControllerBase where T : Entitet
     {
         protected DbSet<T>? DbSet = null;
 
         protected Mapping<T, TDR, TDI> _mapper = new();
         protected abstract void KontrolaBrisanje(T entitet);
   
-        protected readonly EdunovaContext _context = context;
+        protected readonly SalonZaPseContext _context = context;
 
         [HttpGet]
         public IActionResult Get()

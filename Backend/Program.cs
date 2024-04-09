@@ -1,8 +1,6 @@
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
-try
-{
 
 
 
@@ -58,8 +56,3 @@ app.Run();
 
 
 
-}
-catch (Exception e)
-{
-    
-}
