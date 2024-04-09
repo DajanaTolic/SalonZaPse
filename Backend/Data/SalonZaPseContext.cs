@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using System.Text.RegularExpressions;
 
 namespace Backend.Data
 {
@@ -22,11 +23,14 @@ namespace Backend.Data
         public DbSet<Tretman> Tretmani { get; set; }
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            // implementacija veze 1:n
+            modelBuilder.Entity<Tretman>().HasOne(g => g.Korisnik);
+            modelBuilder.Entity<Tret>().HasOne(g => g.Predavac);
 
 
-
-
-
-
+        }
     }
 }

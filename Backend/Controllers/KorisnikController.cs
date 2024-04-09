@@ -19,12 +19,12 @@ namespace Backend.Controllers
         {
             var lista = _context.Tretmani
                 
-                .Where(x => x.Sifra == entitet.Sifra)
+                .Where(x => x.Korisnik == entitet.Sifra)
                 .ToList();
             if (lista != null && lista.Count > 0)
             {
                 StringBuilder sb = new();
-                sb.Append("Smjer se ne može obrisati jer je postavljen na grupama: ");
+                sb.Append("korisnik se ne može obrisati jer je postavljen na tretmanu: ");
                 foreach (var e in lista)
                 {
                     sb.Append(e.Korisnik).Append(", ");
