@@ -9,7 +9,7 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class KorisnikController : BackendController <Korisnik, KorisnikDTORead, KorisnikDTOInsertUpdate>
+    public class KorisnikController : EdunovaController <Korisnik, KorisnikDTORead, KorisnikDTOInsertUpdate>
     {
         public KorisnikController(SalonZaPseContext context) : base(context)
         {

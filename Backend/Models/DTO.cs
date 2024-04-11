@@ -16,7 +16,10 @@ namespace Backend.Models
         string? Vlasnik
         );
 
-    public record UslugaDTORead (int Trajanje, decimal Cijena, string Naziv);
+    public record UslugaDTORead (
+        int Trajanje,
+        decimal Cijena, 
+        string Naziv);
         
         public record UslugaDTOInsertUpdate (
             [Required(ErrorMessage = "Trajanje obavezno")]
@@ -26,6 +29,33 @@ namespace Backend.Models
             [Required(ErrorMessage = "Naziv obavezno")]
             string? Naziv
             );
+
+    public record StavkaDTORead (
+        int Tretman,
+        string UslugaStavka,
+        int KolicinaStavka
+        );
+
+    public record StavkaDTOInsertUpdate (
+          [Required(ErrorMessage = " Tretman obavezno")]
+            int? Tretman,
+            [Required(ErrorMessage = "Usluga obavezno")]
+            string? UslugaStavka,
+            [Required(ErrorMessage = "Kolicina obavezno")]
+            int? KolicinaStavka
+        );
+
+    public record TretmanDTORead(
+        DateTime Datum,
+        string KorisnikTretman);
+
+        public record TretmanDTOInsertUpdate(
+          [Required(ErrorMessage = " Datum obavezno")]
+            DateTime? Datum,
+            [Required(ErrorMessage = "Korisnik obavezno")]
+            string? KorisnikTretman
+          
+        );
 
 
 }

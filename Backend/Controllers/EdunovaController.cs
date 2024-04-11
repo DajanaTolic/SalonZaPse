@@ -1,4 +1,5 @@
 ﻿using Backend.Data;
+using Backend.Data;
 using Backend.Mappers;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
-    public abstract class BackendController<T,TDR,TDI>(SalonZaPseContext context) : ControllerBase where T : Entitet
+    public abstract class EdunovaController<T,TDR,TDI>(SalonZaPseContext context) : ControllerBase where T : Entitet
     {
         protected DbSet<T>? DbSet = null;
 
@@ -91,7 +92,7 @@ namespace Backend.Controllers
                 _context.Update(entitet);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status200OK, _mapper.MapReadToDTO(entitet));
+                return StatusCode(StatusCodes.Status200OK, _mapper.MapInsertUpdateToDTO(entitet));
             }
             catch (Exception ex)
             {
@@ -154,4 +155,4 @@ namespace Backend.Controllers
         }
 
     }
-}
+

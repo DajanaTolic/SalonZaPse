@@ -22,13 +22,17 @@ namespace Backend.Data
 
         public DbSet<Tretman> Tretmani { get; set; }
 
-
+        public DbSet<Stavka> Stavke { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             // implementacija veze 1:n
             modelBuilder.Entity<Tretman>().HasOne(g => g.Korisnik);
-            modelBuilder.Entity<Tret>().HasOne(g => g.Predavac);
+
+            modelBuilder.Entity<Stavka>().HasOne(g => g.Usluga);
+            modelBuilder.Entity<Stavka>().HasOne(g => g.Kolicina);
+
+
 
 
         }
