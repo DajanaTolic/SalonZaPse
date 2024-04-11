@@ -9,7 +9,7 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class UslugaController : BackendController <Usluga, UslugaDTORead, UslugaDTOInsertUpdate>
+    public class UslugaController : EdunovaController <Usluga, UslugaDTORead, UslugaDTOInsertUpdate>
     {
         public UslugaController(SalonZaPseContext context) : base(context)
         {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models
 {
-    public record KorisnikDTORead (string Ime, string Pasmina, decimal Kilaza, string Vlasnik );
+    public record KorisnikDTORead (int Sifra,string Ime, string Pasmina, decimal Kilaza, string Vlasnik );
 
     public record KorisnikDTOInsertUpdate (
         [Required(ErrorMessage = "Ime obavezno")]
@@ -17,6 +17,7 @@ namespace Backend.Models
         );
 
     public record UslugaDTORead (
+        int Sifra,
         int Trajanje,
         decimal Cijena, 
         string Naziv);
@@ -30,7 +31,7 @@ namespace Backend.Models
             string? Naziv
             );
 
-    public record StavkaDTORead (
+    public record StavkaDTORead (int Sifra,
         int Tretman,
         string UslugaStavka,
         int KolicinaStavka
@@ -46,7 +47,8 @@ namespace Backend.Models
         );
 
     public record TretmanDTORead(
-        DateTime Datum,
+        int Sifra,
+        DateTime? Datum,
         string KorisnikTretman);
 
         public record TretmanDTOInsertUpdate(

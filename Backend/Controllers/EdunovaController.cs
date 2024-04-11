@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
-    public abstract class EdunovaController<T,TDR,TDI>(SalonZaPseContext context) : ControllerBase where T : Entitet
+    public abstract class EdunovaController<T, TDR, TDI>(SalonZaPseContext context) : ControllerBase where T : Entitet
     {
         protected DbSet<T>? DbSet = null;
 
         protected Mapping<T, TDR, TDI> _mapper = new();
         protected abstract void KontrolaBrisanje(T entitet);
-  
+
         protected readonly SalonZaPseContext _context = context;
 
         [HttpGet]
@@ -42,7 +42,7 @@ namespace Backend.Controllers
             }
             try
             {
-                var entitet =NadiEntitet(sifra);
+                var entitet = NadiEntitet(sifra);
                 return new JsonResult(_mapper.MapInsertUpdateToDTO(entitet));
             }
             catch (Exception ex)
@@ -51,7 +51,7 @@ namespace Backend.Controllers
             }
         }
 
-      
+
 
         [HttpPost]
         public IActionResult Post(TDI entitetDTO)
@@ -114,12 +114,12 @@ namespace Backend.Controllers
                 KontrolaBrisanje(entitetIzbaze);
                 _context.Remove(entitetIzbaze);
                 _context.SaveChanges();
-                return Ok("Obrisano"); 
+                return Ok("Obrisano");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                }
+            }
         }
 
 
@@ -155,4 +155,5 @@ namespace Backend.Controllers
         }
 
     }
+}
 

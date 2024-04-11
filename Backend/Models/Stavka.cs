@@ -1,14 +1,17 @@
-﻿namespace Backend.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Backend.Models
 {
     public class Stavka:Entitet
     {
-        public int? Tretman { get; set; }
+        [ForeignKey("Tretman")]
+
+        public Tretman Tretman { get; set; }
 
         [ForeignKey("Usluga")]
-        public required Usluga Usluga { get; set; }
+        public  Usluga Usluga  { get; set; }
 
-        [ForeignKey("Kolicina")]
-        public required Kolicina Kolicina { get; set; }
+        public int Kolicina { get; set; }
 
     }
 }
