@@ -30,7 +30,7 @@ namespace Backend.Data
             modelBuilder.Entity<Tretman>().HasOne(g => g.Korisnik);
 
             modelBuilder.Entity<Stavka>().HasOne(g => g.Usluga);
-            modelBuilder.Entity<Stavka>().HasOne(g => g.Kolicina);
+            modelBuilder.Entity<Stavka>().HasOne(g => g.Tretman);
 
 
 

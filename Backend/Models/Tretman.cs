@@ -7,7 +7,7 @@ namespace Backend.Models
     {
         public DateTime Datum { get; set; }
 
-        [ForeignKey("Korisnik")]
-        public int Korisnik { get; set; }
+        [ForeignKey("Korisnikid")]
+        public Korisnik? Korisnik { get; set; }
     }
 }

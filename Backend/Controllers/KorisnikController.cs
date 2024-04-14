@@ -18,8 +18,8 @@ namespace Backend.Controllers
         protected override void KontrolaBrisanje(Korisnik entitet)
         {
             var lista = _context.Tretmani
-                
-                .Where(x => x.Korisnik == entitet.Sifra)
+
+                .Where(x => x.Korisnik.Ime == entitet.Sifra.ToString())
                 .ToList();
             if (lista != null && lista.Count > 0)
             {
