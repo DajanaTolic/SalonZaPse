@@ -45,7 +45,7 @@ export default function KorisniciPromjena(){
             ime: podaci.get('ime'),  // 'naziv' je name atribut u Form.Control
             pasmina:podaci.get('pasmina'), //na backend je int
             kilaza: podaci.get('kilaza'),
-            vlasnik: podaci.get('vlasnik')       
+            vlasnik: podaci.get('vlasnik')      
         };
         //console.log(routeParams.sifra);
         //console.log(korisnik);
@@ -81,9 +81,9 @@ export default function KorisniciPromjena(){
                     <Form.Control type="number" name="kilaza" defaultValue={korisnik.kilaza} />
                 </Form.Group>
 
-                <Form.Group controlId="vlasnika">
+                <Form.Group controlId="vlasnik">
                 <Form.Label>Vlasnik</Form.Label>
-                    <Form.Control type="text" name="vlasnik" defaultChecked={korisnik.vlasnik   } />
+                    <Form.Control type="text" name="vlasnik" defaultValue={korisnik.vlasnik} />
                 </Form.Group>
 
                 <hr />
