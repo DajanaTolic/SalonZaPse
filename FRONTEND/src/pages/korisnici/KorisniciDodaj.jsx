@@ -1,78 +1,49 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Container, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
-import KorisnikService from "../../services/KorisnikService";
-
+import Service from "../../services/KorisnikService";
+import InputText from "../../components/InputText";
+import InputCheckbox from "../../components/InputCheckbox";
+import Akcije from "../../components/Akcije";
+import useError from "../../hooks/useError";
+import useLoading from "../../hooks/useLoading";
 
 export default function KorisnikDodaj(){
     const navigate = useNavigate();
+    const { prikaziError } = useError();
+    const { showLoading, hideLoading } = useLoading();
 
-    async function dodaj(korisnik){
-        const odgovor = await KorisnikService.post(korisnik);
-        if (odgovor.greska){
-            console.log(odgovor.poruka);
-            alert('Pogledaj konzolu');
-            return;
+    async function dodajKorisnik(korisnik){
+        showLoading();
+        const odgovor = await Service.dodaj('Korisnik',korisnik);
+        hideLoading();
+        if(odgovor.ok){
+          navigate(RoutesNames.KORISNIK_PREGLED);
+          return
         }
-        navigate(RoutesNames.KORISNIK_PREGLED);
+        prikaziError(odgovor.podaci);
     }
 
-    function obradiSubmit(e){ // e predstavlja event
+    function handleSubmit(e){ // e predstavlja event
         e.preventDefault();
-        //alert('Dodajem korisnik');
-
-        const podaci = new FormData(e.target);
-
-        const korisnik = {
+         const podaci = new FormData(e.target);
+         dodajKorisnik({
             ime: podaci.get('ime'),  // 'naziv' je name atribut u Form.Control
             pasmina: podaci.get('pasmina'), //na backend je int
             kilaza: parseInt(podaci.get('kilaza')),
             vlasnik: podaci.get('vlasnik')          
-        };
-
-        //console.log(korisnik);
-        dodaj(korisnik);
-
+        });
     }
 
     return (
 
         <Container>
-            <Form onSubmit={obradiSubmit}>
-
-                <Form.Group controlId="ime">
-                    <Form.Label>Ime</Form.Label>
-                    <Form.Control type="text" name="ime" required />
-                </Form.Group>
-
-                <Form.Group controlId="pasmina">
-                    <Form.Label>Pasmina</Form.Label>
-                    <Form.Control type="text" name="pasmina" />
-                </Form.Group>
-
-                <Form.Group controlId="kilaza">
-                    <Form.Label>Kilaza</Form.Label>
-                    <Form.Control type="number" name="kilaza" />
-                </Form.Group>
-
-                <Form.Group controlId="vlasnik">
-                    <Form.Label>Vlasnik</Form.Label>
-                    <Form.Control type="text" name="vlasnik" />
-                </Form.Group>
-                <hr />
-                <Row>
-                    <Col>
-                        <Link className="btn btn-danger siroko" to={RoutesNames.KORISNIK_PREGLED}>
-                            Odustani
-                        </Link>
-                    </Col>
-                    <Col >
-                        <Button className="siroko" variant="primary" type="submit">
-                            Dodaj
-                        </Button>
-                    </Col>
-                </Row>
-
+            <Form onSubmit={handleSubmit}>
+            <InputText atribut='ime' vrijednost='' />
+                <InputText atribut='pasmina' vrijednost='' />
+                <InputText atribut='kilaza' vrijednost='' />
+                <InputText atribut='vlasnik' vrijednost='' />
+                <Akcije odustani={RoutesNames.KORISNIK_PREGLED} akcija='Dodaj korisnika' />
             </Form>
         </Container>
 

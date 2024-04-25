@@ -1,27 +1,40 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { RoutesNames } from "../../constants";
-import KorisnikService from "../../services/KorisnikService";
 import { useEffect, useState } from "react";
-
+import {  Container, Form } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import Service from "../../services/KorisnikService";
+import { RoutesNames } from "../../constants";
+import InputText from "../../components/InputText";
+import InputCheckbox from "../../components/InputCheckbox";
+import Akcije from "../../components/Akcije";
+import useError from "../../hooks/useError";
+import useLoading from "../../hooks/useLoading";
 
 export default function KorisniciPromjena(){
+
     const navigate = useNavigate();
     const routeParams = useParams();
     const [korisnik, setKorisnik] = useState({});
+    const { prikaziError } = useError();
+    const { showLoading, hideLoading } = useLoading();
 
    async function dohvatiKorisnik(){
-        const o = await KorisnikService.getBySifra(routeParams.sifra);
-        console.log(o);
-        if(o.greska){
-            console.log(o.poruka);
-            alert('pogledaj konzolu');
+    showLoading();
+        const odgovor = await Service.getBySifra('Korisnik',routeParams.sifra);
+        hideLoading();
+        if(!odgovor.ok){
+            prikaziError(odgovor.podaci);
+            navigate(RoutesNames.KORISNIK_PREGLED);
             return;
         }
-        setKorisnik(o.poruka);
-   }
+        setSmjer(odgovor.podaci);
+    }
 
-   async function promjeni(korisnik){
+    useEffect(()=>{
+        dohvatiKorisnik();
+
+       },[]);
+  
+    async function promjeniKorisnik(korisnik){
     const odgovor = await KorisnikService.put(routeParams.sifra,korisnik);
     if (odgovor.greska){
         console.log(odgovor.poruka);
@@ -31,9 +44,7 @@ export default function KorisniciPromjena(){
     navigate(RoutesNames.KORISNIK_PREGLED);
 }
 
-   useEffect(()=>{
-    dohvatiKorisnik();
-   },[]);
+   
 
     function obradiSubmit(e){ // e predstavlja event
         e.preventDefault();

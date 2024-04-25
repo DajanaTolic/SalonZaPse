@@ -1,41 +1,48 @@
 import { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import KorisnikService from '../../services/KorisnikService';
-import { Button, Table } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { RoutesNames } from '../../constants';
+import {  Button, Container, Table } from "react-bootstrap";
+import Service from '../../services/KorisnikService';
+import { NumericFormat } from "react-number-format";
+import { GrValidate } from "react-icons/gr";
+import { IoIosAdd } from "react-icons/io";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { RoutesNames } from "../../constants";
+import useError from "../../hooks/useError";
+import useLoading from "../../hooks/useLoading";
+
 
 export default function Korisnici() {
     const [korisnici, setKorisnici] = useState();
     const navigate = useNavigate();
+    const { prikaziError } = useError();
+    const { showLoading, hideLoading } = useLoading();
 
+    
     async function dohvatiKorisnike() {
-        await KorisnikService.get()
-            .then((odg) => {
-                setKorisnici(odg);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        showLoading();
+        const odgovor = await Service.get('Korisnik');
+        hideLoading();
+        if(!odgovor.ok){
+            prikaziError(odgovor.podaci);
+            return;
+        }
+        setKorisnici(odgovor.podaci);
     }
 
+    async function obrisiKorisnik(sifra){
+        showLoading();
+        const odgovor = await Service.obrisi('Korisnik',sifra);
+        hideLoading();
+        prikaziError(odgovor.podaci);
+        if (odgovor.ok){
+            dohvatiKorisnike();
+        }
+    }
+    
+    
     useEffect(() => {
         dohvatiKorisnike();
     }, []);
-
-    async function obrisiAsync(sifra) {
-        const odgovor = await KorisnikService._delete(sifra);
-        if (odgovor.greska) {
-            console.log(odgovor.poruka);
-            alert('Pogledaj konzolu');
-            return;
-        }
-        dohvatiKorisnike();
-    }
-
-    function obrisi(sifra) {
-        obrisiAsync(sifra);
-    }
 
 
     return(
@@ -62,7 +69,7 @@ export default function Korisnici() {
 
                                 <td>
                                     <Button 
-                                    onClick={()=>obrisi(korisnik.sifra)}
+                                    onClick={()=>obrisiKorisnik(korisnik.sifra)}
                                     variant='danger'
                                     >
                                         Obriši
