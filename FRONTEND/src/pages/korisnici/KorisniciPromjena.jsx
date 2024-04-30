@@ -26,7 +26,7 @@ export default function KorisniciPromjena(){
             navigate(RoutesNames.KORISNIK_PREGLED);
             return;
         }
-        setSmjer(odgovor.podaci);
+        setKorisnik(odgovor.podaci);
     }
 
     useEffect(()=>{
@@ -35,81 +35,39 @@ export default function KorisniciPromjena(){
        },[]);
   
     async function promjeniKorisnik(korisnik){
-    const odgovor = await KorisnikService.put(routeParams.sifra,korisnik);
-    if (odgovor.greska){
-        console.log(odgovor.poruka);
-        alert('Pogledaj konzolu');
+        showLoading();
+        const odgovor = await Service.promjeni('Korisnik', routeParams.sifra,korisnik);
+        hideLoading();
+    if (odgovor.ok){
+        navigate(RoutesNames.KORISNIK_PREGLED);
         return;
     }
-    navigate(RoutesNames.KORISNIK_PREGLED);
+    prikaziError(odgovor.podaci);
 }
 
    
-
-    function obradiSubmit(e){ // e predstavlja event
+    function handleSubmit(e){ // e predstavlja event
         e.preventDefault();
-        //alert('Dodajem korisnik');
-
         const podaci = new FormData(e.target);
-
-        const korisnik = {
+        promjeniKorisnik({
             ime: podaci.get('ime'),  // 'naziv' je name atribut u Form.Control
             pasmina:podaci.get('pasmina'), //na backend je int
             kilaza: podaci.get('kilaza'),
             vlasnik: podaci.get('vlasnik')      
-        };
-        //console.log(routeParams.sifra);
-        //console.log(korisnik);
-        promjeni(korisnik);
-
+        });
     }
 
+
+
     return (
-
         <Container>
-            <Form onSubmit={obradiSubmit}>
+            <Form onSubmit={handleSubmit}>
 
-                <Form.Group controlId="ime">
-                    <Form.Label>Ime</Form.Label>
-                    <Form.Control 
-                    type="text" 
-                    name="ime" 
-                    defaultValue={korisnik.ime}
-                    required />
-                </Form.Group>
-
-                <Form.Group controlId="pasmina">
-                    <Form.Label>Pasmina</Form.Label>
-                    <Form.Control 
-                    type="text" 
-                    name="pasmina"
-                    defaultValue={korisnik.pasmina}
-                     />
-                </Form.Group>
-
-                <Form.Group controlId="kilaza">
-                    <Form.Label>Kilaza</Form.Label>
-                    <Form.Control type="number" name="kilaza" defaultValue={korisnik.kilaza} />
-                </Form.Group>
-
-                <Form.Group controlId="vlasnik">
-                <Form.Label>Vlasnik</Form.Label>
-                    <Form.Control type="text" name="vlasnik" defaultValue={korisnik.vlasnik} />
-                </Form.Group>
-
-                <hr />
-                <Row>
-                    <Col>
-                        <Link className="btn btn-danger siroko" to={RoutesNames.KORISNIK_PREGLED}>
-                            Odustani
-                        </Link>
-                    </Col>
-                    <Col>
-                        <Button className="siroko" variant="primary" type="submit">
-                            Promjeni
-                        </Button>
-                    </Col>
-                </Row>
+            <InputText atribut='ime' vrijednost={korisnik.ime} />
+                    <InputText atribut='pasmina' vrijednost={korisnik.pasmina} />
+                    <InputText atribut='kilaza' vrijednost={korisnik.kilaza} />
+                    <InputText atribut='vlasnik' vrijednost={korisnik.vlasnik} />
+                    <Akcije odustani={RoutesNames.KORISNIK_PREGLED} akcija='Promjeni korisnika' />
 
             </Form>
         </Container>
