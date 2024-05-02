@@ -11,9 +11,14 @@ import Korisnici from './pages/korisnici/Korisnici'
 import KorisniciDodaj from './pages/korisnici/KorisniciDodaj'
 import KorisniciPromjena from './pages/korisnici/KorisniciPromjena'
 
+import Stavke from './pages/stavke/Stavke'
+import StavkeDodaj from './pages/stavke/StavkeDodaj'
+import StavkePromjena from './pages/stavke/StavkePromjena'
+
 import Usluge from "./pages/usluge/Usluge"
 import UslugeDodaj from './pages/usluge/UslugeDodaj'
 import UslugePromjena from "./pages/usluge/UslugePromjena"
+
 import ErrorModal from './components/ErrorModal'
 import LoadingSpinner from './components/LoadingSpinner'
 import useError from './hooks/useError'
@@ -41,6 +46,10 @@ function App() {
         <Route path={RoutesNames.USLUGA_PREGLED} element={<Usluge />} />
         <Route path={RoutesNames.USLUGA_NOVI} element={<UslugeDodaj />} />
         <Route path={RoutesNames.USLUGA_PROMJENA} element={<UslugePromjena />} />
+        
+        <Route path={RoutesNames.STAVKA_PREGLED} element={<Stavke />} />
+        <Route path={RoutesNames.STAVKA_NOVI} element={<StavkeDodaj />} />
+        <Route path={RoutesNames.STAVKA_PROMJENA} element={<StavkePromjena />} />
         
       </Routes>
     </>

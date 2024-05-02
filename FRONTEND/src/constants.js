@@ -4,9 +4,9 @@ export const RoutesNames = {
     KORISNIK_NOVI: '/korisnici/dodaj',
     KORISNIK_PROMJENA: '/korisnici/:sifra',
 
-    STAVKA_PREGLED: '/stavke',
-    STAVKA_NOVI: '/stavke/dodaj',
-    STAVKA_PROMJENA: '/stavke/:sifra',
+    STAVKA_PREGLED: '/Stavke',
+    STAVKA_NOVI: '/Stavke/dodaj',
+    STAVKA_PROMJENA: '/Stavke/:sifra',
 
 
     TRETMAN_PREGLED: '/tretmani',

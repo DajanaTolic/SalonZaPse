@@ -6,21 +6,20 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import moment from "moment";
-
 import Service from "../../services/StavkaService";
 import { RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
 import useLoading from "../../hooks/useLoading";
 
 export default function Stavke(){
-    const [stavke,setGrupe] = useState();
+    const [stavke,setStavke] = useState();
     const { showLoading, hideLoading } = useLoading();
     let navigate = useNavigate(); 
     const { prikaziError } = useError();
 
     async function dohvatiStavke(){
         showLoading();
-        const odgovor = await Service.get('Stavka');
+        const odgovor = await Service.get('Stavke');
         hideLoading();
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
@@ -29,9 +28,9 @@ export default function Stavke(){
         setStavke(odgovor.podaci);
     }
 
-    async function obrisiGrupu(sifra) {
+    async function obrisiStavku(sifra) {
         showLoading();
-        const odgovor = await Service.obrisi('Stavka',sifra);
+        const odgovor = await Service.obrisi('Stavke',sifra);
         hideLoading();
         prikaziError(odgovor.podaci);
         if (odgovor.ok){
@@ -67,34 +66,13 @@ export default function Stavke(){
                     {stavke && stavke.map((entitet,index)=>(
                         <tr key={index}>
                             <td>{entitet.tretman}</td>
-                            <td>{entitet.smjerNaziv}</td>
-                            <td>{entitet.predavacImePrezime}</td>
-                            <td>
-                                <p>
-                                {entitet.datumpocetka==null 
-                                ? 'Nije definirano'
-                                :   
-                                formatirajDatum(entitet.datumpocetka)
-                                }
-                                </p>
-                                <ProgressBar 
-                                label={progressLabel(entitet)}
-                                variant="success"
-                                title={progressStatus(entitet)} now={progressPostotak(entitet)} />
-                               
-                                {/* 
-                                <span title="Broj upisanih polaznika">{entitet.brojpolaznika}</span>/ 
-                                <span title="Maksimalno polaznika u grupi">
-                                {entitet.maksimalnopolaznika==null ? '0' : 
-                                entitet.maksimalnopolaznika
-                                }
-                                </span> 
-                                */}
-                            </td>
+                            <td>{entitet.uslugaStavka}</td>
+                            <td>{entitet.kolicina}</td>
+                            
                             <td className="sredina">
                                     <Button
                                         variant='primary'
-                                        onClick={()=>{navigate(`/grupe/${entitet.sifra}`)}}
+                                        onClick={()=>{navigate(`/stavke/${entitet.sifra}`)}}
                                     >
                                         <FaEdit 
                                     size={25}
@@ -105,7 +83,7 @@ export default function Stavke(){
                                     &nbsp;&nbsp;&nbsp;
                                     <Button
                                         variant='danger'
-                                        onClick={() => obrisiGrupu(entitet.sifra)}
+                                        onClick={() => obrisiStavke(entitet.sifra)}
                                     >
                                         <FaTrash
                                         size={25}/>
